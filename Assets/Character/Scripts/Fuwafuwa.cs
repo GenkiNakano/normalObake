@@ -5,21 +5,21 @@ using UnityEngine;
 public class Fuwafuwa : MonoBehaviour
 { 
 
-    //oŒ»ˆÊ’u‚Ì•Ï”
+    //å‡ºç¾ä½ç½®ã®å¤‰æ•°
     private float rdmX;
     private float rdmY;
 
-    //ƒmƒCƒY‚É•Ï‰»‚ğ—^‚¦‚é•Ï”
+    //ãƒã‚¤ã‚ºã«å¤‰åŒ–ã‚’ä¸ãˆã‚‹å¤‰æ•°
     private float rdm;
 
-    //Œõ‚ğ“–‚Ä‚½‚É‚»‚Ìê‚Éc‚ç‚¹‚é‚½‚ß‚Ìİ’è•Ï”
+    //å…‰ã‚’å½“ã¦ãŸæ™‚ã«ãã®å ´ã«æ®‹ã‚‰ã›ã‚‹ãŸã‚ã®è¨­å®šå¤‰æ•°
     public float fuwaSetX;
     public float fuwaSetY;
 
     // Start is called before the first frame update
     void Start()
     {
-        //oŒ»ˆÊ’u‚ğƒmƒCƒY‚Åw’èB0‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉFX‚©‚¯‚½‚è‚µ‚Ä‚¢‚éB
+        //å‡ºç¾ä½ç½®ã‚’ãƒã‚¤ã‚ºã§æŒ‡å®šã€‚0ã«ãªã‚‰ãªã„ã‚ˆã†ã«è‰²ã€…ã‹ã‘ãŸã‚Šã—ã¦ã„ã‚‹ã€‚
         rdmX = Random.Range(-1.0f, 1.0f) * 10.1f + 0.1f;
         rdmY = Random.Range(-1.0f, 1.0f) * 5.1f + 0.1f;
         while(rdmX == 0)
@@ -30,16 +30,13 @@ public class Fuwafuwa : MonoBehaviour
         {
             rdmY = Random.Range(-1.0f, 1.0f) * 5.1f + 0.1f;
         }
-
-        fuwaSetX = 3.1f;
-        fuwaSetY = 3.1f;
         rdm = Random.Range(1.0f, 3.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ˆêŒÂ‘O‚ÌˆÊ’u‚Æ”ä‚×‚Ä’l‚ª’á‚©‚Á‚½‚çƒXƒP[ƒ‹‚ğ”½“]‚·‚é‚±‚Æ‚ÅAis•ûŒü‚É‰æ‘œ‚ğŒü‚¯‚é
+        //ä¸€å€‹å‰ã®ä½ç½®ã¨æ¯”ã¹ã¦å€¤ãŒä½ã‹ã£ãŸã‚‰ã‚¹ã‚±ãƒ¼ãƒ«ã‚’åè»¢ã™ã‚‹ã“ã¨ã§ã€é€²è¡Œæ–¹å‘ã«ç”»åƒã‚’å‘ã‘ã‚‹
         Vector3 oldPos = transform.position;
         Vector3 position = transform.position;
         float check = 0.0f;
