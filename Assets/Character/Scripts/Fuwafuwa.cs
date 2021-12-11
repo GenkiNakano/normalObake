@@ -5,47 +5,85 @@ using UnityEngine;
 public class Fuwafuwa : MonoBehaviour
 { 
 
-    //å‡ºç¾ä½ç½®ã®å¤‰æ•°
-    private float rdmX;
-    private float rdmY;
+    //oŒ»ˆÊ’u‚Ì•Ï”
+    private float positionX;
+    private float positionY;
 
-    //ãƒã‚¤ã‚ºã«å¤‰åŒ–ã‚’ä¸ãˆã‚‹å¤‰æ•°
+    //ƒp[ƒŠƒ“ƒmƒCƒY‚É•Ï‰»‚ğ—^‚¦‚é•Ï”
     private float rdm;
 
-    //å…‰ã‚’å½“ã¦ãŸæ™‚ã«ãã®å ´ã«æ®‹ã‚‰ã›ã‚‹ãŸã‚ã®è¨­å®šå¤‰æ•°
+    //Œõ‚ğ“–‚Ä‚½‚É‚»‚Ìê‚Éc‚ç‚¹‚é‚½‚ß‚Ìİ’è•Ï”
     public float fuwaSetX;
     public float fuwaSetY;
+    private float firstFuwaSet;
+
+    //“®‚­ƒXƒs[ƒh
+    public float noiseSpeedLow;
+    public float noiseSpeedHigh;
+
+    //Œõ‚ª“–‚½‚Á‚½‚±‚Æ‚ğ’²‚×‚é•Ï”
+    public bool hitCheck;
+    //Œõ‚ªŠO‚ê‚½‚±‚Æ‚ğ’²‚×‚é•Ï”
+    public bool outCheck;
 
     // Start is called before the first frame update
     void Start()
     {
-        //å‡ºç¾ä½ç½®ã‚’ãƒã‚¤ã‚ºã§æŒ‡å®šã€‚0ã«ãªã‚‰ãªã„ã‚ˆã†ã«è‰²ã€…ã‹ã‘ãŸã‚Šã—ã¦ã„ã‚‹ã€‚
-        rdmX = Random.Range(-1.0f, 1.0f) * 10.1f + 0.1f;
-        rdmY = Random.Range(-1.0f, 1.0f) * 5.1f + 0.1f;
-        while(rdmX == 0)
-        {
-            rdmX = Random.Range(-1.0f, 1.0f) * 10.1f + 0.1f;
-        }
-        while (rdmY == 0)
-        {
-            rdmY = Random.Range(-1.0f, 1.0f) * 5.1f + 0.1f;
-        }
-        rdm = Random.Range(1.0f, 3.0f);
+        //‰ŠúˆÊ’uİ’è•Ï”BƒXƒNƒŠ[ƒ“‚Ì•‚ÌƒTƒCƒY“à‚Åƒ‰ƒ“ƒ_ƒ€‚È’l‚ğ‚Æ‚èAƒXƒP[ƒ‹ŠÔ‚ğk‚ß‚é‚½‚ß‚É30‚ÅŠ„‚Á‚Ä‚¢‚éB
+        positionX = Random.Range(-Screen.width / 2, Screen.width / 2) / 30;
+        positionY = Random.Range(-Screen.height / 2, Screen.height / 2) / 30;
+
+        //Å‰‚Éİ’è‚µ‚½fuwaSet‚Ì’l‚ğ‹L‰¯‚µ‚Ä‚¨‚­
+        firstFuwaSet = fuwaSetX;
+
+        //ƒp[ƒŠƒ“ƒmƒCƒY—p•Ï”
+        rdm = Random.Range(noiseSpeedLow, noiseSpeedHigh);
+
+        hitCheck = false;
+        outCheck = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ä¸€å€‹å‰ã®ä½ç½®ã¨æ¯”ã¹ã¦å€¤ãŒä½ã‹ã£ãŸã‚‰ã‚¹ã‚±ãƒ¼ãƒ«ã‚’åè»¢ã™ã‚‹ã“ã¨ã§ã€é€²è¡Œæ–¹å‘ã«ç”»åƒã‚’å‘ã‘ã‚‹
+        //‘O‚ÌÀ•W‚Æ¡‚ÌÀ•W‚ğ•Û‘¶‚·‚é•Ï”‚ğéŒ¾
         Vector3 oldPos = transform.position;
-        Vector3 position = transform.position;
+        Vector3 newPos = transform.position;
+        //‚¨‚Î‚¯‚ğ¶‚ÉŒü‚©‚¹‚é‚©‰E‚ÉŒü‚©‚¹‚é‚©‚ğƒ`ƒFƒbƒN‚·‚é•Ï”‚ğéŒ¾
         float check = 0.0f;
-       
-        position.x = rdmX + (Mathf.PerlinNoise(Time.time / rdm , 0) - 0.5f) * fuwaSetX;
-        position.y = rdmY + (Mathf.PerlinNoise(0, Time.time / rdm) - 0.5f) * fuwaSetY;
 
-        check = position.x - oldPos.x;
+        //ƒ‰ƒCƒg‚ª“–‚½‚Á‚½‚É©‘R‚É’â~‚·‚é‚æ‚¤‚É™X‚ÉŒ¸‚ç‚µ‚Ä‚¢‚Á‚Ä‚¢‚é
+        if(hitCheck == true && fuwaSetY > 1.5f)
+        {
+            if(fuwaSetX > 0)
+            {
+                fuwaSetX -= 0.2f;
+            }
+            fuwaSetY -= 0.2f;
+        }
+        else
+        {
+            hitCheck = false;
+        }
 
+        //ƒ‰ƒCƒg‚ªŠO‚ê‚½‚É©‘R‚Éƒp[ƒŠƒ“ƒmƒCƒY‚É–ß‚ê‚é‚æ‚¤‚É™X‚É‘«‚µ‚Ä‚¢‚Á‚Ä‚¢‚é
+        if(outCheck == true && fuwaSetX < firstFuwaSet)
+        {
+            fuwaSetX += 0.01f;
+            fuwaSetY += 0.01f;
+        }
+        else
+        {
+            outCheck = false;
+        }
+
+        //ƒp[ƒŠƒ“ƒmƒCƒY‚Å“®‚«‚ğw’è
+        newPos.x = positionX + (Mathf.PerlinNoise(Time.time / rdm , 0) - 0.5f) * fuwaSetX;
+        newPos.y = positionY + (Mathf.PerlinNoise(0, Time.time / rdm) - 0.5f) * fuwaSetY;
+
+
+        //ˆêŒÂ‘O‚ÌˆÊ’u‚Æ”ä‚×‚Ä’l‚ª’á‚©‚Á‚½‚çƒXƒP[ƒ‹‚ğ”½“]‚·‚é‚±‚Æ‚ÅAis•ûŒü‚É‰æ‘œ‚ğŒü‚¯‚é
+        check = newPos.x - oldPos.x;
         if (0 <= check)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -54,7 +92,6 @@ public class Fuwafuwa : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-
-        transform.position = position;
+        transform.position = newPos;
     }
 }

@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class ForumChange : MonoBehaviour
 {
-    private float eyeAlpha; //ç›®ã ã‘ã®çŠ¶æ…‹ã®é€æ˜åº¦
-    private float obakeAlpha; //ãŠã°ã‘çŠ¶æ…‹ã®é€æ˜åº¦
-    private bool hitFlag; //ãƒ©ã‚¤ãƒˆãŒå½“ãŸã£ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹å¤‰æ•°
-
-    public float backFuwaSetx;
-    public float backFuwaSety;
+    private float eyeAlpha; //–Ú‚¾‚¯‚Ìó‘Ô‚Ì“§–¾“x
+    private float obakeAlpha; //‚¨‚Î‚¯ó‘Ô‚Ì“§–¾“x
+    private bool hitFlag; //ƒ‰ƒCƒg‚ª“–‚½‚Á‚Ä‚¢‚é‚©’²‚×‚é•Ï”
 
     Animator animator;
     
@@ -18,15 +15,14 @@ public class ForumChange : MonoBehaviour
     {
         this.animator = GetComponent<Animator>();
         obakeAlpha = 0.1f;
+        eyeAlpha = 0.0f;
         hitFlag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        eyeAlpha = (Mathf.PerlinNoise(Time.time * 1000, 0)  -0.45f) / 5; //ç›®ã®é€æ˜åº¦ã‚’ãƒ‘ãƒ¼ãƒªãƒ³ãƒã‚¤ã‚ºã§å¤‰æ›´ã™ã‚‹ã€‚é€æ˜åº¦ãŒ0ã®çŠ¶æ…‹ãŒå¤šããªã‚‹ã‚ˆã†ã«-0.45fã—ã¦ã€ãƒã‚¤ã‚ºã®ä¸­å¿ƒã‚’0ä»˜è¿‘ã«ã—ã¦ã„ã‚‹ã€‚
-
-        //ãƒ©ã‚¤ãƒˆãŒå½“ãŸã£ã¦ã„ã¦ã€é€æ˜åº¦ãŒæœ€å¤§å€¤ä»¥ä¸‹ã®æ™‚ã€é€æ˜åº¦ã‚’å¾ã€…ã«ä¸Šã’ã¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«åæ˜ ã•ã›ã‚‹ã€‚
+        //ƒ‰ƒCƒg‚ª“–‚½‚Á‚Ä‚¢‚ÄA“§–¾“x‚ªÅ‘å’lˆÈ‰º‚ÌA“§–¾“x‚ğ™X‚Éã‚°‚ÄƒIƒuƒWƒFƒNƒg‚É”½‰f‚³‚¹‚éB
         if(hitFlag == true && obakeAlpha < 1.0f)
         {
             obakeAlpha += 0.005f;
@@ -34,20 +30,29 @@ public class ForumChange : MonoBehaviour
         }
         if(hitFlag == false)
         {
-            obakeAlpha = 0.1f;
+            if(obakeAlpha > 0.1f)
+            {
+                obakeAlpha -= 0.01f;
+                eyeAlpha = obakeAlpha;
+                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, eyeAlpha);
+            }
+            else
+            {
+                eyeAlpha = (Mathf.PerlinNoise(Time.time * 1000, 0) - 0.45f) / 5; //–Ú‚Ì“§–¾“x‚ğƒp[ƒŠƒ“ƒmƒCƒY‚Å•ÏX‚·‚éB“§–¾“x‚ª0‚Ìó‘Ô‚ª‘½‚­‚È‚é‚æ‚¤‚É-0.45f‚µ‚ÄAƒmƒCƒY‚Ì’†S‚ğ0•t‹ß‚É‚µ‚Ä‚¢‚éB
+                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, eyeAlpha);
+            }
         }
     }
 
-    //ãƒ©ã‚¤ãƒˆãŒå½“ãŸã£ãŸæ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å¤‰æ›´
-    //ãƒ©ã‚¤ãƒˆãŒå½“ãŸã£ãŸã‚‰xæ–¹å‘ã®å‹•ãã‚’ãªãã—ã€ç·©ã‚„ã‹ã«ä¸Šä¸‹ã«æµ®éŠã™ã‚‹
+    //ƒ‰ƒCƒg‚ª“–‚½‚Á‚½‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğ•ÏX
+    //ƒ‰ƒCƒg‚ª“–‚½‚Á‚½‚çx•ûŒü‚Ì“®‚«‚ğ‚È‚­‚µAŠÉ‚â‚©‚Éã‰º‚É•‚—V‚·‚é
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "HandLight")
         {
             this.animator.SetTrigger("hit");
             hitFlag = true;
-            this.GetComponent<Fuwafuwa>().fuwaSetX = 0;
-            this.GetComponent<Fuwafuwa>().fuwaSetY = 1.5f;
+            this.GetComponent<Fuwafuwa>().hitCheck = true;
         }
 
     }
@@ -57,9 +62,7 @@ public class ForumChange : MonoBehaviour
         {
             this.animator.SetTrigger("out");
             hitFlag = false;
-            this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, eyeAlpha);
-            this.GetComponent<Fuwafuwa>().fuwaSetX = backFuwaSetx;
-            this.GetComponent<Fuwafuwa>().fuwaSetY = backFuwaSety;
+            this.GetComponent<Fuwafuwa>().outCheck = true;
         }
     }
 }

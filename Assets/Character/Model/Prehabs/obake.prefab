@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8311790790675186642}
   - component: {fileID: 293025421280991132}
-  - component: {fileID: 5273957129397667510}
   - component: {fileID: 8794734931228842225}
   - component: {fileID: 8794734931228842224}
+  - component: {fileID: 5273957129397667510}
   - component: {fileID: 8794734931228842226}
   m_Layer: 0
   m_Name: obake
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5273957129397667510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4773378002044944057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa0844d9b84089d429473906e3357c14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &8794734931228842225
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.965
+  m_Radius: 1
 --- !u!95 &8794734931228842224
 Animator:
   serializedVersion: 3
@@ -133,6 +121,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5273957129397667510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773378002044944057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0844d9b84089d429473906e3357c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuwaSetX: 5.1
+  fuwaSetY: 5.1
+  noiseSpeedLow: 3
+  noiseSpeedHigh: 10
+  outCheck: 0
 --- !u!114 &8794734931228842226
 MonoBehaviour:
   m_ObjectHideFlags: 0
