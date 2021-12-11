@@ -38,7 +38,7 @@ public class ForumChange : MonoBehaviour
             }
             else
             {
-                eyeAlpha = (Mathf.PerlinNoise(Time.time * 1000, 0) - 0.45f) / 5; //目の透明度をパーリンノイズで変更する。透明度が0の状態が多くなるように-0.45fして、ノイズの中心を0付近にしている。
+                eyeAlpha = (Mathf.PerlinNoise(Time.time, 0) - 0.45f) / 5; //目の透明度をパーリンノイズで変更する。透明度が0の状態が多くなるように-0.45fして、ノイズの中心を0付近にしている。
                 this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, eyeAlpha);
             }
         }

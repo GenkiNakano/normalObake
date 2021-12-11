@@ -133,10 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0844d9b84089d429473906e3357c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuwaSetX: 5.1
-  fuwaSetY: 5.1
+  moveSetX: 5.1
+  moveSetY: 5.1
   noiseSpeedLow: 3
   noiseSpeedHigh: 10
+  hitCheck: 0
   outCheck: 0
 --- !u!114 &8794734931228842226
 MonoBehaviour:

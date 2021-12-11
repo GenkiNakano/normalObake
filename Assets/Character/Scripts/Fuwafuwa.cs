@@ -13,9 +13,9 @@ public class Fuwafuwa : MonoBehaviour
     private float rdm;
 
     //光を当てた時にその場に残らせるための設定変数
-    public float fuwaSetX;
-    public float fuwaSetY;
-    private float firstFuwaSet;
+    public float moveSetX;
+    public float moveSetY;
+    private float firstMoveSet;
 
     //動くスピード
     public float noiseSpeedLow;
@@ -34,7 +34,7 @@ public class Fuwafuwa : MonoBehaviour
         positionY = Random.Range(-Screen.height / 2, Screen.height / 2) / 30;
 
         //最初に設定したfuwaSetの値を記憶しておく
-        firstFuwaSet = fuwaSetX;
+        firstMoveSet = moveSetX;
 
         //パーリンノイズ用変数
         rdm = Random.Range(noiseSpeedLow, noiseSpeedHigh);
@@ -53,13 +53,13 @@ public class Fuwafuwa : MonoBehaviour
         float check = 0.0f;
 
         //ライトが当たった時に自然に停止するように徐々に減らしていっている
-        if(hitCheck == true && fuwaSetY > 1.5f)
+        if(hitCheck == true && moveSetY > 1.5f)
         {
-            if(fuwaSetX > 0)
+            if(moveSetX > 0)
             {
-                fuwaSetX -= 0.2f;
+                moveSetX -= 0.2f;
             }
-            fuwaSetY -= 0.2f;
+            moveSetY -= 0.2f;
         }
         else
         {
@@ -67,10 +67,10 @@ public class Fuwafuwa : MonoBehaviour
         }
 
         //ライトが外れた時に自然にパーリンノイズに戻れるように徐々に足していっている
-        if(outCheck == true && fuwaSetX < firstFuwaSet)
+        if(outCheck == true && moveSetX < firstMoveSet)
         {
-            fuwaSetX += 0.01f;
-            fuwaSetY += 0.01f;
+            moveSetX += 0.01f;
+            moveSetY += 0.01f;
         }
         else
         {
@@ -78,8 +78,8 @@ public class Fuwafuwa : MonoBehaviour
         }
 
         //パーリンノイズで動きを指定
-        newPos.x = positionX + (Mathf.PerlinNoise(Time.time / rdm , 0) - 0.5f) * fuwaSetX;
-        newPos.y = positionY + (Mathf.PerlinNoise(0, Time.time / rdm) - 0.5f) * fuwaSetY;
+        newPos.x = positionX + (Mathf.PerlinNoise(Time.time / rdm , 0) - 0.5f) * moveSetX;
+        newPos.y = positionY + (Mathf.PerlinNoise(0, Time.time / rdm) - 0.5f) * moveSetY;
 
 
         //一個前の位置と比べて値が低かったらスケールを反転することで、進行方向に画像を向ける
